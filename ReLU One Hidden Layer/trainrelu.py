@@ -38,7 +38,7 @@ def ReLu(z):
 # Softmax used in the output layer for probabilities
 def softmax(z):
     # Subtracting the max of z for numerical stability
-    z_exp = np.exp(z - np.max(z, axis=0, keepdims=True) + 1e-9)
+    z_exp = np.exp(z - np.max(z, axis=0, keepdims=True) )#+ 1e-9)
     return z_exp / np.sum(z_exp, axis=0, keepdims=True)
 
 # Forward propagation
@@ -59,16 +59,15 @@ def compute_cost(A2, Y):
 
 # Backpropagation: calculate gradients for each parameter
 def backward_pass(X, Y, Z1, A1, Z2, A2, W1, W2):
-    # One hidden layer - change this accordingly
-    counter_overflow = 1e-9
     m = Y.shape[1]
     dZ2 = A2 - Y
     dW2 = np.dot(dZ2, A1.T) / m
     db2 = np.sum(dZ2, axis=1, keepdims=True) / m
-    dZ1 = np.dot(W2.T, dZ2) * (A1 + counter_overflow) * ((1 - A1) + counter_overflow)
+    dZ1 = np.dot(W2.T, dZ2) * (Z1 > 0)  # derivative of ReLU
     dW1 = np.dot(dZ1, X.T) / m
     db1 = np.sum(dZ1, axis=1, keepdims=True) / m
     return dW1, db1, dW2, db2
+
 
 # Update parameters using gradient descent
 def update_parameters(W1, b1, W2, b2, dW1, db1, dW2, db2, learning_rate):
@@ -113,8 +112,8 @@ output_size = 10 # 10 classes (digits 0-9) - do not change
 W1, b1, W2, b2 = initialize_parameters(input_size, hidden_size, output_size)
 
 # Example training loop - tune this!
-num_iterations = 600
-learning_rate = 0.01
+num_iterations = 10000
+learning_rate = 0.15
 
 # Keep track of cost and accuracy over time
 cost_history = []
