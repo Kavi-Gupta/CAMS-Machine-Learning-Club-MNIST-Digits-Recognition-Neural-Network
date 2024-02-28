@@ -112,8 +112,8 @@ output_size = 10 # 10 classes (digits 0-9) - do not change
 W1, b1, W2, b2 = initialize_parameters(input_size, hidden_size, output_size)
 
 # Example training loop - tune this!
-num_iterations = 800
-learning_rate = 0.1
+num_iterations = 10000
+learning_rate = 0.15
 
 # Keep track of cost and accuracy over time
 cost_history = []

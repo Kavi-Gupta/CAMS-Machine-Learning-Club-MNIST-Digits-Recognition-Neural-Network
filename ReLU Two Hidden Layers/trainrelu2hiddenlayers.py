@@ -112,15 +112,15 @@ def cost_and_accuracy_over_time(cost_history, accuracy_history, iteration):
 # Parameters of the model
 input_size = 784 # MNIST images are 28x28 pixels - do not change
 hidden_size = 128 # Size of hidden layer - change this accordingly
-hidden_size2 = 128
+hidden_size2 = 64
 output_size = 10 # 10 classes (digits 0-9) - do not change
 
 # Note this is for a single hidden layer - change this accordingly
 W1, b1, W2, b2, W3, b3 = initialize_parameters(input_size, hidden_size, hidden_size2, output_size)
 
 # Example training loop - tune this!
-num_iterations = 1000
-learning_rate = 0.01
+num_iterations = 10000
+learning_rate = 0.05
 
 # Keep track of cost and accuracy over time
 cost_history = []
